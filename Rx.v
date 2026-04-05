@@ -5,13 +5,13 @@ module Rx(
     output reg Rx_signal
 );
 
-parameter IDLE = 3'b00 , START = 3'b001 , DATASTR = 3'b010 , PRTYCHEK = 3'b011 , LAST = 3'b100 ,  bit_cycle=4 ,
+parameter IDLE = 3'b00 , START = 3'b001 , DATASTR = 3'b010 , PRTYCHEK = 3'b011 , LAST = 3'b100 ,  bit_cycle=434 ,
           total_bit = 11 ;
 
 
 // reg needs for counters and sampling
 
-reg [3:0] cnt_cycle ;
+reg [10:0] cnt_cycle ;
 reg [4:0] cnt_bit   ;
 reg sampling ;
 reg start_count ;
@@ -32,7 +32,7 @@ reg [2:0] state ;
 reg prty_signal ; 
 wire prty_signal_out_SIPO ;
 wire Rx_prty ;
-
+integer sample = bit_cycle/2 ;  // sampling instance 
 
 //cycle counter ;
 always @(posedge Rx_clk) begin
@@ -63,7 +63,7 @@ end
 
 // sampling
 always @(posedge Rx_clk ) begin
-    if(cnt_cycle == 2)
+    if(cnt_cycle == sample )
         sampling <= 1;
     else sampling <= 0;
 
@@ -228,6 +228,12 @@ always @(*) begin
         end
 
     endcase
+
+end
+
+sipo s1 (Rx_clk , shift ,takeout , Rx_signal, reset_SIPO , prty_signal , stroing , outing , prty_signal_out_SIPO ) ;
+
+endmodule
 
 end
 
