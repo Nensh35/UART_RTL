@@ -144,15 +144,4 @@ piso P1( load, shift , Tx_clk  ,reset_PISO , data_in  ,  signal_Tx ,parity ) ;
 assign Tx_signal = Tx_signal2 ;
 
 endmodule
-          
-///  learnigs 
-
-/*👉 Yes — in always @(*) (combinational block):
-
-✔ You should use blocking assignment (=)
-❌ Do NOT use non-blocking (<=)
-
-in the controller  we are using the purely combinatial ckt 
-so there can be latch can form take care that every step should be well defined
-
-*/
+        
