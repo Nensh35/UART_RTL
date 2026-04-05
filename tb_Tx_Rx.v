@@ -1,4 +1,4 @@
-`timescale 1us/1us 
+`timescale 1ns/1ns 
 `include "Tx.v"
 `include "Rx.v"
 
@@ -13,9 +13,9 @@ reg data_flg , Tx_clk , Rx_clk ;
     Rx r1(Tx_signal , Rx_clk , Rx_signal ) ;
 
 
-always #25 Tx_clk = ~Tx_clk ; 
+always #5 Tx_clk = ~Tx_clk ; 
 
-always #50 Rx_clk = ~Rx_clk ; 
+always #10 Rx_clk = ~Rx_clk ; 
 
     initial  begin 
     data_flg <= 0 ;
@@ -26,12 +26,12 @@ always #50 Rx_clk = ~Rx_clk ;
     $dumpfile("Tx_Rx.vcd");
     $dumpvars(0,tb) ;
 
-    #60 data_flg = 1 ; data_in <= 8'b10101010;
-    #60 data_flg = 0 ;
+    #120 data_flg = 1 ; data_in <= 8'b10101010;
+    #100 data_flg = 0 ;
     #60 data_in <= 8'b0;
     
 
-    #10000 
+    #100000
     $display("value in the sipo finaly 7 to 0 order %d %d %d %d  %d %d %d %d" , r1.s1.mem[7] , r1.s1.mem[6] , r1.s1.mem[5] ,
                  r1.s1.mem[4] , r1.s1.mem[3] , r1.s1.mem[2] , r1.s1.mem[1] , r1.s1.mem[0] ) ;
     $finish ;
