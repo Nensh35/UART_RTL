@@ -9,8 +9,9 @@ module Tx(
 // in this we are using even parity 
 
 parameter IDLE=2'b00  , LOAD = 2'b01 , SEND = 2'b10 ;  // state of FSM :
-parameter  boud_rate = 1960 ;   // bit per second we need to transmit  ;
-parameter bit_cycle = 9  ;   // 1 bit need this much cycle when Tx_clk is 100MHz ;  for 20KHz it will be 10
+parameter  boud_rate = 50000 ;   // bit per second we need to transmit  ;
+parameter bit_cycle = 868  ;   // for 10Mhz and 50K boud_rate it will be 20
+
 
 
 reg [1:0] state ;
